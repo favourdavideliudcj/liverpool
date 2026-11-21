@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liverpool FC | You'll Never Walk Alone</title>
+  <style>
+    :root {
+      --lfc-red: #c8102e;
+      --lfc-dark-red: #8e0b20;
+      --lfc-gold: #f6eb61;
+      --lfc-teal: #00b2a9;
+      --bg-dark: #111315;
+      --card-bg: #1c1f24;
+      --text-light: #f4f4f6;
+      --text-muted: #a0a6b1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: linear-gradient(135deg, var(--lfc-red), var(--lfc-dark-red));
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      background: var(--lfc-gold);
+      color: var(--lfc-dark-red);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--lfc-gold);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      background: radial-gradient(circle at center, #2b090e 0%, var(--bg-dark) 80%);
+      border-bottom: 2px solid var(--lfc-red);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .hero p {
+      color: var(--lfc-gold);
+      font-size: 1.2rem;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      background: var(--lfc-red);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: var(--lfc-dark-red);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Container & Sections */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      border-left: 5px solid var(--lfc-red);
+      padding-left: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Club Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid #2c313a;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--lfc-red);
+    }
+
+    .card h3 {
+      color: var(--lfc-gold);
+      font-size: 1rem;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .card .stat {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    /* Interactive Trophy Cabinet */
+    .trophy-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .trophy-btn {
+      background: #262a32;
+      color: var(--text-light);
+      border: 1px solid #3a404c;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .trophy-btn.active {
+      background: var(--lfc-red);
+      border-color: var(--lfc-red);
+    }
+
+    .trophy-display {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--lfc-gold);
+    }
+
+    /* Squad Filter & Cards */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .squad-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .player-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.2rem;
+      position: relative;
+      border-top: 4px solid var(--lfc-red);
+    }
+
+    .player-number {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 2rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.08);
+    }
+
+    .player-pos {
+      display: inline-block;
+      background: var(--lfc-teal);
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Matchday Simulator */
+    .match-box {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid #2c313a;
+    }
+
+    .scoreboard {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 1rem 0;
+    }
+
+    .match-log {
+      margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      min-height: 24px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #0b0c0e;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">LIVERPOOL FC <span>EST. 1892</span></div>
+    <nav>
+      <a href="#about">Club Info</a>
+      <a href="#honours">Honours</a>
+      <a href="#squad">Key Squad</a>
+      <a href="#matchday">Anfield Sim</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>You'll Never Walk Alone</h1>
+    <p>Anfield • Merseyside • England</p>
+    <button class="btn" id="chantBtn">Play Anfield Chant 🔊</button>
+    <p id="chantDisplay" style="margin-top: 15px; font-size: 1rem; color: #fff;"></p>
+  </div>
+
+  <div class="container">
+    <!-- Club Facts Section -->
+    <section id="about">
+      <h2>Club Overview</h2>
+      <div class="info-grid">
+        <div class="card">
+          <h3>Home Stadium</h3>
+          <div class="stat">Anfield</div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Capacity: 61,276</p>
+        </div>
+        <div class="card">
+          <h3>Founded</h3>
+          <div class="stat">June 3, 1892</div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">By John Houlding</p>
+        </div>
+        <div class="card">
+          <h3>Club Anthem</h3>
+          <div class="stat">YNWA</div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Gerry & The Pacemakers (1963)</p>
+        </div>
+        <div class="card">
+          <h3>Famous Stands</h3>
+          <div class="stat">The Kop</div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">World-famous single-tier stand</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Honours Section -->
+    <section id="honours">
+      <h2>Trophy Cabinet</h2>
+      <div class="trophy-controls" id="trophyControls"></div>
+      <div class="trophy-display" id="trophyDisplay"></div>
+    </section>
+
+    <!-- Filterable Squad Section -->
+    <section id="squad">
+      <h2>Featured Players</h2>
+      <div class="filter-bar">
+        <button class="trophy-btn active" onclick="filterSquad('All', this)">All</button>
+        <button class="trophy-btn" onclick="filterSquad('Goalkeeper', this)">Goalkeepers</button>
+        <button class="trophy-btn" onclick="filterSquad('Defender', this)">Defenders</button>
+        <button class="trophy-btn" onclick="filterSquad('Midfielder', this)">Midfielders</button>
+        <button class="trophy-btn" onclick="filterSquad('Forward', this)">Forwards</button>
+      </div>
+      <div class="squad-grid" id="squadGrid"></div>
+    </section>
+
+    <!-- Interactive Matchday Scoreboard -->
+    <section id="matchday">
+      <h2>Anfield Matchday Simulator</h2>
+      <div class="match-box">
+        <p style="color: var(--lfc-gold); font-weight: bold;">EUROPEAN NIGHT AT ANFIELD</p>
+        <div class="scoreboard">
+          <span>LIV <span id="lfcScore" style="color: var(--lfc-red);">0</span></span>
+          <span>-</span>
+          <span><span id="oppScore">0</span> RIVALS</span>
+        </div>
+        <button class="btn" onclick="simulateGoal('LIV')">⚽ Liverpool Goal!</button>
+        <button class="btn" style="background:#3a404c;" onclick="simulateGoal('OPP')">Opponent Goal</button>
+        <button class="btn" style="background:transparent; border:1px solid #555;" onclick="resetMatch()">Reset</button>
+        <div class="match-log" id="matchLog">Kick-off at Anfield!</div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    Built with HTML, CSS & JavaScript • Dedicated to The Reds
+  </footer>
+
+  <script>
+    // 1. Anfield Chant Generator
+    const chants = [
+      "🎶 Walk on, walk on, with hope in your heart, and you'll never walk alone! 🎶",
+      "🎶 Allez, Allez, Allez! We conquered all of Europe, we're never gonna stop! 🎶",
+      "🎶 Fields of Anfield Road, where once we watched the King Kenny play! 🎶",
+      "🎶 Mo Salah, Mo Salah, running down the wing! 🎶"
+    ];
+
+    document.getElementById('chantBtn').addEventListener('click', () => {
+      const randomChant = chants[Math.floor(Math.random() * chants.length)];
+      document.getElementById('chantDisplay').textContent = randomChant;
+    });
+
+    // 2. Interactive Trophy Data
+    const trophies = [
+      {
+        title: "European Cups / Champions League (6)",
+        years: "1977, 1978, 1981, 1984, 2005, 2019",
+        note: "Most successful English club in European Cup history, highlighted by the 2005 'Miracle of Istanbul'."
+      },
+      {
